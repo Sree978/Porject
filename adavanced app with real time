@@ -63,4 +63,8 @@
    63  docker run -d -p 5001:5001 bus-booking
    64  docker ps
    65  docker stop a46be27fdebb
-   66  ll
+   docker login
+   72  docker images
+   73  docker tag bus-booking sree978/busbooking:v1
+   74  docker push sree978/busbooking:v1
+
