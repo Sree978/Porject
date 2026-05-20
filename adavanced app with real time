@@ -1,0 +1,66 @@
+1  clear
+    2  mkdir product-app
+    3  cd product-app
+    4  cd p
+    5  vi app.py
+    6  vi requirements.txt
+    7  vi Dockerfile
+    8  docker build -t product-app .
+    9  yum update -y
+   10  yum install docker -y
+   11  cd ..
+   12  yum update -y
+   13  yum install docker -y
+   14  systemctl start docker
+   15  systemctl enable docker
+   16  docker --version
+   17  cd product-app/
+   18  docker build -t product-app .
+   19  docker tag product-app Sree978/product-app:v1
+   20  docker login
+   21  docker push Sree978/product-app:v1
+   22  docker tag product-app sree978/product-app:v1
+   23  docker login
+   24  docker push sree978/product-app:v1
+   25  docker logout
+   26  docker login
+   27  docker push sree978/product-app:v1
+   28  docker pull sree978/product-app:v1
+   29  docker run -d -p 5000:5000 sree978/product-app:v1
+   30  docker run -d -p 5000:5000 --name product-container sree978/product-app:v1
+   31  docker ps
+   32  curl ifconfig.me
+   33  history
+   34  clear
+   35  cd ..
+   36  ll
+   37  rm product-app/
+   38  rm -rf product-app/
+   39  ll
+   40  clear
+   41  mkdir product-store
+   42  cd product-store
+   43  mkdir templates
+   44  ll
+   45  ls
+   46  vi app.py
+   47  vi templates/index.html
+   48  vi requirements.txt
+   49  vi Dockerfile
+   50  docker version
+   51  clear
+   52  docker build -t bus-booking .
+   53  docker run -d -p 5001:5001 bus-booking
+   54  docker ps
+   55  curl ifconfig.me
+   56  docker logs 012f145e50a8
+   57  docker logs a46be27fdebb
+   58  docker stop a46be27fdebb
+   59  docker rm a46be27fdebb
+   60  docker run -d -p 5001:5000 bus-booking
+   61  vi app.py
+   62  docker build -t bus-booking .
+   63  docker run -d -p 5001:5001 bus-booking
+   64  docker ps
+   65  docker stop a46be27fdebb
+   66  ll
