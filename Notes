@@ -1,0 +1,39 @@
+Code + Dockerfile
+Code Scan : CQA (Code Quality Analysis) ---> Sonar   
+Build : Maven     (cp -r target Docker-app)
+Artifact : Nexus
+Dockerfiles ---> Build ---> image    ---(docker build -t appimage Docker-app) && (docker build -t dbimage Docker-db)
+Image Scan -----> Trivy      ---trivy image imagename ( trivy name appimage & & trivy image dbimage
+Registry ---> Push  
+    Registry ---> Push
+
+a. docker tag dbimage shaikmustafa/manual:db
+
+b. docker tag appimage shaikmustafa/manual:app
+
+c. docker push shaikmustafa/manual:db
+
+d. docker push shaikmustafa/manual:app
+
+Deploy ---> Pre-Prod & Prod
+post build actions ---> pipeline status
+
+Manual & automatic   
+
+we never use manuval in real time
+
+take ec2 - install java git & maven 
+
+go to maven pom.xml file --> mvn package --> you will get target folder
+
+install docker 
+vuild a image 
+copy target file to dockerapp ( folder)
+run & create dcoker image
+for appimage 
+db image
+
+Install trivy 
+trivy image imagename -- > for scan 
+
+
