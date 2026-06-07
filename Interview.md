@@ -103,3 +103,56 @@ or shadow work. I've owned incident response, architected EKS clusters, built Te
 3 AWS accounts, and delivered FinOps outcomes for Bank of Montreal under a strict 99.9% SLA. 
 The depth and production ownership I've had is comparable to what many engineers accumulate 
 in 5–6 years in less critical environments. I'm confident I can hit the ground running at the senior level.
+
+
+
+
+Q1. Tell me about yourself
+
+Answer:
+I work as a DevOps Engineer at TCS supporting Bank of Montreal. I manage AWS, Kubernetes, Terraform, and CI/CD pipelines. My role is to automate deployments, maintain infrastructure, solve production issues, and ensure applications run smoothly.
+
+Q2. Kubernetes Experience
+
+Answer:
+Applications run on EKS. I monitor pods and deployments, check logs and events when issues occur, fix the root cause, and ensure applications remain available with auto-scaling and rolling updates.
+
+Q3. Terraform Experience
+
+Answer:
+When infrastructure changes are needed, I update Terraform code, review the plan, deploy through CI/CD, and verify resources. This helps us maintain consistent environments and avoid manual errors.
+
+Q4. Production Incident
+
+Answer:
+The application was failing. I checked Grafana dashboards and pod logs, found memory issues causing pods to crash, rolled back the deployment, and restored the service within 30 minutes.
+
+Q5. CI/CD Process
+
+Answer:
+When developers commit code, the pipeline builds, tests, and deploys the application automatically. I monitor the deployment, verify health checks, and ensure users experience no downtime.
+
+Q6. Monitoring
+
+Answer:
+When alerts are triggered, I check Grafana, Dynatrace, and CloudWatch dashboards, identify the issue, take corrective action, and make sure the application returns to normal operation quickly.
+
+Q7. AWS Security
+
+Answer:
+I review IAM permissions, secure network access, enforce encryption, and regularly audit resources to ensure applications remain secure and compliant.
+
+Q8. Cost Optimization
+
+Answer:
+I review AWS utilization reports, identify underused resources, right-size them, and implement auto-scaling. This helps reduce cloud costs while maintaining performance.
+
+Q9. Why New Role?
+
+Answer:
+I've gained strong experience at TCS. Now I'm looking for bigger challenges, more ownership, and opportunities to contribute to cloud architecture and platform engineering initiatives.
+
+Q10. Why Should We Hire You With 4 Years Experience?
+
+Answer:
+I may have 4 years of experience, but I've worked directly on production banking systems. I've handled deployments, incidents, automation, Kubernetes, AWS, and Terraform, which gives me the confidence to contribute from day one.
