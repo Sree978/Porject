@@ -67,7 +67,8 @@ Ongoing:
 Say this:
 "My primary project at TCS is the Enterprise Cloud Infrastructure platform for Bank of Montreal (BMO), one of Canada's largestbanks.
 The Challenge:
-BMO needed a highly available, secure, multi-account AWS architecture to support 1,000+ concurrent banking users while meeting strict BFSI compliance standards — with zero tolerance for downtime or security breaches.
+BMO needed a highly available, secure, multi-account AWS architecture to support 1,000+ concurrent banking users while meeting strict 
+BFSI compliance standards — with zero tolerance for downtime or security breaches.
 What I Built & Owned:
 🔧 Infrastructure Layer:
 
