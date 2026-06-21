@@ -6,3 +6,13 @@ STages
 Take m7i-flex server 2  ( one for jenkins one for manager )
 t3 micro servers 2 ( workers) 
 
+Jenkins server  ---> install jenkins 
+Manager server  ---> install docker & install compose & docker swarm and copy to key every worker node ( create cluster  ) + install git also
+W1 & w2  & jenkins also --> install docker
+
+Create connection b/w manager and jenkins server 
+
+
+
+
+
