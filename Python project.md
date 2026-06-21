@@ -23,7 +23,41 @@ hostkey verification strategy : Non verifying verification startegy
 Create a job over jenkins 
 
 
+step 1  code 
+step 2 : code quality analysis 
+integrate sonarqube
+Jenkins -> docker run -itd --name sonar -p 9000:9000 sonarqube:lts-community
+connect over browser with 9000 port 
 
+
+ Go to sonarqube page > manuvaly >setup >jenkins> github
+
+ Go to jenkins > install plugin > sonarqube scanner 
+ manage jenkins > system> sonarqube installation > provide sonarqube ip 
+ go to sonar page > my accpount > generate tocken ,
+
+
+ CQA >
+will check over sonar qube 
+step3 
+images 
+
+manager server :chmod 777 /var/run/docker.sock 
+install ytivy 
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.71.2
+
+Step 4 :
+scan images
+
+step 5 
+push images to docker hub 
+plugin > docker pipeline 
+
+ 
+
+ 
+ 
+ 
 
 
 
