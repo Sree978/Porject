@@ -127,5 +127,30 @@ Whenever incidents are reported, I perform root cause analysis by checking logs,
 pod status, application health, and infrastructure metrics. For critical issues, I collaborate with 
 application teams, developers to ensure timely resolution while maintaining SLA commitments.
 
+Examples of tickets I handle daily include:
+
+Kubernetes pod failures and deployment issues.
+Jenkins/GitLab pipeline failures.
+Terraform infrastructure changes.
+EC2 instance creation or modification requests.
+CloudWatch or Dynatrace alerts.
+User access and IAM permission requests.
+Production incidents and application downtime.
+AWS cost optimization activities.
+Server patching and automation tasks.
+
+For P1/P2 incidents, we immediately join bridge calls and troubleshoot based on alerts and logs. 
+For normal tickets, we prioritize according to SLA and work with application and development teams 
+until closure."
+"One day, we received a P2 alert from Dynatrace indicating high CPU utilization on application pods running
+
+in EKS. I checked Grafana dashboards and verified pod metrics using kubectl top pods. I identified two pods 
+consuming excessive CPU due to increased traffic. I scaled the deployment temporarily and coordinated with
+the application team to optimize resource limits. After monitoring the environment, CPU utilization returned
+to normal, and the incident was resolved within SLA. I documented the RCA and preventive actions in ServiceNow."
+
+
+
 Currently, I am looking for an opportunity where I can leverage my experience in AWS, DevOps, and FinOps
 practices and contribute to cloud optimization, governance, automation, and operational excellence."
+
