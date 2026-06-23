@@ -108,3 +108,24 @@ onceSay "we" for team efforts, "I" for your direct workOverclaiming solo ownersh
 4 minutesGoing too deep into one toolEnd intro with "I'm excited about this opportunity"Ending abruptly without a close
 
 Practice this 2–3 times out loud before your interview — the numbers and tool names will flow naturally once you've rehearsed. Good luck, Sreekanth! 
+
+
+I am part of the DevOps and Production Support team responsible for managing highly available AWS 
+infrastructure and CI/CD platforms. We follow Agile methodology, and tickets are raised through 
+ServiceNow/Jira. On a daily basis, I work on incidents, service requests, changes, deployments,
+and cloud optimization activities.
+
+Typically, my day starts by reviewing monitoring dashboards and checking for alerts from CloudWatch, Prometheus, and Grafana. I attend the daily standup meeting to discuss ongoing tasks 
+and priorities. Throughout the day, I work on tickets such as infrastructure provisioning using 
+Terraform, Kubernetes deployment issues, CI/CD pipeline failures, server patching using Ansible, 
+application deployments, and troubleshooting production incidents.
+
+I have also worked on AWS cost optimization initiatives where I implemented tagging standards,
+rightsized EC2 instances, optimized Reserved Instance coverage, and reduced cloud costs by around 20-25%.
+
+Whenever incidents are reported, I perform root cause analysis by checking logs, monitoring dashboards, 
+pod status, application health, and infrastructure metrics. For critical issues, I collaborate with 
+application teams, developers to ensure timely resolution while maintaining SLA commitments.
+
+Currently, I am looking for an opportunity where I can leverage my experience in AWS, DevOps, and FinOps
+practices and contribute to cloud optimization, governance, automation, and operational excellence."
