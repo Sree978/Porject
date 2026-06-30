@@ -1,158 +1,49 @@
-Q1 Behavioural  --  Tell me about yourself and your DevOps experience.
-Your answer  :
-I'm a DevOps Engineer at TCS with 4 years of experience, where I've been supporting Bank of Montreal — a Tier-1 
-global banking client — on production AWS infrastructure. Day-to-day I manage EKS clusters, 
-Terraform IaC across 3 AWS accounts, GitLab CI/CD pipelines, and full-stack observability with Grafana, 
-Dynatrace, and CloudWatch. I've helped reduce deployment cycle time by 40%, cut provisioning time by 60%, 
-and delivered 20–25% cloud cost savings. I thrive in high-stakes, zero-tolerance environments where uptime 
-and security are non-negotiable.
-Q2
-Technical
-Walk me through how you manage Kubernetes workloads in production.
-Your answer
-I manage Amazon EKS clusters with IRSA for pod-level IAM, ALB Ingress Controller for routing across 
-15+ microservices, and Kubernetes RBAC for access control. I deploy applications using Helm charts 
-integrated into our GitLab CI/CD pipeline — so every release is versioned and reproducible. 
-For scaling, I use HPA based on CPU and custom metrics. For zero-downtime releases I use rolling
-update strategy with readiness probes configured. During incidents I use kubectl describe, logs, 
-and events alongside Grafana dashboards to isolate pod-level issues. For BMO we maintain 99.9%+ 
-availability across all environments.
+1) what are the different enviroments you used in your Project
 
-Q3
-Technical
-How do you manage Terraform at scale across multiple environments?
-Your answer
-I use modular Terraform with separate modules for networking, compute, and security. I manage 
-3 AWS accounts — dev, staging, and production — using Terraform workspaces for environment isolation.
-Remote state is stored in S3 with DynamoDB for state locking to prevent concurrent modifications. 
-I enforce no manual changes through strict GitLab CI/CD pipelines that run terraform plan on every 
-merge request and terraform apply only on approval to main. This eliminated config drift and reduced 
-provisioning time by ~60%. I also use variable files per environment to keep modules DRY.
+In my current banking project at TCS for the Bank of Montreal, we primarily worked with three environments: Development, Staging (or UAT), and Production. We maintained separate AWS accounts for each environment using Terraform workspaces and remote state isolation. This ensured complete separation between environments."
+Development Environment:
+Developers committed code to GitLab. CI/CD pipelines automatically built Docker images, executed unit tests, pushed images to the registry, and deployed them to the Development EKS cluster.
+ Here we validated new features and infrastructure changes.
 
-Q4
-Situational
-Describe a production incident you handled. What was your process?
-Your answer
-We had a P1 incident where payment-processing pods on EKS were OOMKilled, causing API errors for end users. 
-I immediately checked Grafana and Dynatrace to confirm spike in memory consumption, then pulled kubectl 
-describe pod to see OOMKilled events. I rolled back the Helm release while simultaneously checking recent 
-code changes in GitLab. Root cause was an unoptimized database query introduced in the last release
-that caused memory leak under load. I patched the query, redeployed via pipeline, and confirmed
-metrics stabilised. Total resolution time was under 30 minutes. Post-incident I added memory alerts 
-at 80% threshold and introduced load testing gates in the pipeline.
-Q5
-Technical
-How do you approach CI/CD pipeline design for zero-downtime deployments?
-Your answer
-Our GitLab CI/CD pipeline follows: build → unit test → Docker image build → push to ECR → Helm upgrade 
-to EKS. For zero-downtime I configure rolling update strategy in Kubernetes with maxUnavailable: 0 
-and proper readiness probes so traffic only routes to healthy pods. Automated rollback is triggered 
-if the deployment health check fails within a defined window. I've also set up self-hosted GitLab 
-runners on Kubernetes with horizontal auto-scaling, which cut CI build queue wait times by ~50% during 
-peak windows. For high-risk releases I advocate blue-green or canary patterns so we can shift 
-traffic gradually.
-Q6
-Technical
-How do you handle observability and alerting for microservices?
-Your answer
-I've built full-stack observability across 10+ microservices using a combination of Prometheus for metrics,
-Grafana for dashboards with custom SLI/SLO panels, Dynatrace APM for traces and application-level insights, 
-and AWS CloudWatch for infrastructure-level logs and alarms. I set up SNS-based multi-channel 
-alerting — email, Slack, PagerDuty — for 50+ critical metrics. This reduced mean alert-to-acknowledge 
-time from 15 minutes to under 2 minutes, and our overall MTTR dropped by ~30%. For SLO tracking 
-I define error budgets and alert when we're burning through them faster than allowed.
-Q7
-How do you ensure security in your AWS infrastructure?
-Your answer
-Security is layered across our stack. At the identity layer I use IAM with least-privilege policies 
-and IRSA for pods — so each pod only has the permissions it needs. At the network layer I use private 
-subnets, VPC peering for inter-account communication, security groups with minimal open ports, 
-and NACLs as a secondary control. For API security I've secured 10+ API Gateway endpoints with Lambda 
-custom authorizers. We enforce TLS/SSL on all ALB listeners. Terraform enforces infrastructure standards
-so no manual exceptions slip through. For the banking client we also follow BFSI compliance standards a
-nd conduct regular access reviews.
-Q8
-Situational
-How have you contributed to cloud cost optimisation?
-Your answer
-I led FinOps initiatives for BMO's AWS environment. First, I enforced tagging standards so every resource 
-is attributable to a team and workload — without tags you can't optimise what you can't see. 
-Then I right-sized EC2 instances by analysing CloudWatch utilisation metrics over 4 weeks and 
-identifying over-provisioned instances. I also reviewed Reserved Instance coverage gaps and presented 
-recommendations to the team. Combined, these initiatives delivered an estimated 20–25% reduction in 
-monthly cloud spend. I also built auto-scaling policies on EKS node groups so we don't over-provision 
-for off-peak hours.
+Staging/UAT Environment: 
+After successful testing in Dev, the same Helm charts and Terraform modules were promoted to Staging. This environment closely matched Production and was used for integration testing, performance testing, security validation, and business user acceptance.
 
-Q9
-Behavioural
-Why are you looking for a new role, and why this one specifically?
-Your answer
-I've had a strong 4 years at TCS and I'm proud of what I've built for BMO — but I'm at a stage where
-I want to own infrastructure decisions end-to-end, not just execute within a large delivery structure. 
-This role appeals to me because it's focused on high-traffic, high-scale platforms where reliability
-and automation are mission-critical — which is exactly the environment I've thrived in. I want to 
-contribute to architecture decisions, not just operations, and grow toward a platform engineering 
-or SRE leadership track.
-Q10
-Situational
-Do you have 5 years? The JD requires 5+ years of experience.
-Your answer
-I have 4 years, and I want to be upfront about that. However, I've been working on Tier-1 banking 
-production infrastructure from my very first year — not internal tooling, sandbox environments, 
-or shadow work. I've owned incident response, architected EKS clusters, built Terraform IaC across
-3 AWS accounts, and delivered FinOps outcomes for Bank of Montreal under a strict 99.9% SLA. 
-The depth and production ownership I've had is comparable to what many engineers accumulate 
-in 5–6 years in less critical environments. I'm confident I can hit the ground running at the senior level.
+Production Environment: 
+Once all approvals were completed, deployments were performed through GitLab CI/CD with controlled approvals. We used rolling updates on Amazon EKS to ensure zero downtime. Monitoring was done using Prometheus, Grafana, Dynatrace, and CloudWatch, and if any issue occurred, we had rollback mechanisms through our CI/CD pipeline."
+
+2) how you troubleshoot application slowness.
+
+"In my project, I first check Grafana and CloudWatch dashboards to identify whether the issue is related to infrastructure or the application. Then I verify Kubernetes pod health, CPU, memory, and logs. If the issue is caused by resource exhaustion, I scale the pods. If it started after a deployment, I roll back using the GitLab CI/CD pipeline. If infrastructure is healthy, I work with the application team to investigate slow database queries or application code. This systematic approach helps identify the root cause quickly instead of guessing
+
+3)  statefull & stateless
+   stateful : Stateful applications require persistent storage and stable identities. Kubernetes uses StatefulSets to manage them, ensuring each pod has a unique hostname and its own Persistent Volume
+ex: MySQL, PostgreSQL, MongoDB
+stateless :  Stateless applications do not maintain session or user data. Each request is independent, making them easy to scale and manage. In Kubernetes, we typically deploy stateless applications using Deployments
+ex: Nginx, Web servers
+Easy way to remember
+Deployment = Stateless = No data
+StatefulSet = Stateful = Data + Persistent Storage
+
+4)   what you will do by using terraform
+   In my project, I used Terraform as an Infrastructure as Code (IaC) tool to automate the provisioning and management of AWS infrastructure. Instead of creating resources manually through the AWS Console, I wrote reusable Terraform modules and stored them in Git. This allowed us to create consistent infrastructure across Development, Staging, and Production environments.
+"Using Terraform, I provisioned:
+
+    1 ) VPCs, subnets, route tables, Internet and NAT Gateways
+    2) Security Groups and IAM roles
+    3) EC2 instances
+    4) Amazon EKS clusters
+    5) Application Load Balancers
+    6) S3 buckets for remote state
+    7) RDS databases
+    8) Auto Scaling resources and CloudWatch alarms"
+    workflow was:
+
+Write Terraform code.
+    1) Store it in GitLab.
+    2) Run terraform fmt and terraform validate.
+    3) Execute terraform plan to review changes.
+    4) After approval, run terraform apply through the GitLab CI/CD pipeline.
+    5) Terraform stored the state file in an S3 bucket with state locking to prevent concurrent modifications."
+ 
 
 
-
-
-Q1. Tell me about yourself
-
-Answer:
-I work as a DevOps Engineer at TCS supporting Bank of Montreal. I manage AWS, Kubernetes, Terraform, and CI/CD pipelines. My role is to automate deployments, maintain infrastructure, solve production issues, and ensure applications run smoothly.
-
-Q2. Kubernetes Experience
-
-Answer:
-Applications run on EKS. I monitor pods and deployments, check logs and events when issues occur, fix the root cause, and ensure applications remain available with auto-scaling and rolling updates.
-
-Q3. Terraform Experience
-
-Answer:
-When infrastructure changes are needed, I update Terraform code, review the plan, deploy through CI/CD, and verify resources. This helps us maintain consistent environments and avoid manual errors.
-
-Q4. Production Incident
-
-Answer:
-The application was failing. I checked Grafana dashboards and pod logs, found memory issues causing pods to crash, rolled back the deployment, and restored the service within 30 minutes.
-
-Q5. CI/CD Process
-
-Answer:
-When developers commit code, the pipeline builds, tests, and deploys the application automatically. I monitor the deployment, verify health checks, and ensure users experience no downtime.
-
-Q6. Monitoring
-
-Answer:
-When alerts are triggered, I check Grafana, Dynatrace, and CloudWatch dashboards, identify the issue, take corrective action, and make sure the application returns to normal operation quickly.
-
-Q7. AWS Security
-
-Answer:
-I review IAM permissions, secure network access, enforce encryption, and regularly audit resources to ensure applications remain secure and compliant.
-
-Q8. Cost Optimization
-
-Answer:
-I review AWS utilization reports, identify underused resources, right-size them, and implement auto-scaling. This helps reduce cloud costs while maintaining performance.
-
-Q9. Why New Role?
-
-Answer:
-I've gained strong experience at TCS. Now I'm looking for bigger challenges, more ownership, and opportunities to contribute to cloud architecture and platform engineering initiatives.
-
-Q10. Why Should We Hire You With 4 Years Experience?
-
-Answer:
-I may have 4 years of experience, but I've worked directly on production banking systems. I've handled deployments, incidents, automation, Kubernetes, AWS, and Terraform, which gives me the confidence to contribute from day one.
