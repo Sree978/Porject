@@ -44,6 +44,23 @@ Write Terraform code.
     3) Execute terraform plan to review changes.
     4) After approval, run terraform apply through the GitLab CI/CD pipeline.
     5) Terraform stored the state file in an S3 bucket with state locking to prevent concurrent modifications."
+
+5) what is PV &  pvc
+
+PV :  A Persistent Volume (PV) is the actual storage available in the Kubernetes cluster. It can come from:
+AWS EBS &Local storage
+
+Think of it as a hard disk provided to Kubernetes.
+
+What is PVC (Persistent Volume Claim)?
+iT is a request for storage made by a pod,Instead of directly using a PV, a pod requests storage through a PVC.
+Kubernetes automatically binds the PVC to a matching PV.
+
+    Easy analogy
+  Imagine you're staying in a hotel:
+  Hotel Room = Persistent Volume (PV)
+  Room Booking = Persistent Volume Claim (PVC)
+  Guest = Pod
  
 
 
