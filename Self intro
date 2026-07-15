@@ -2,114 +2,6 @@
 My name is Sreekanth Chakala, and I'm a DevOps & Cloud Infrastructure Engineer with 4+ years of experience, 
 currently working at Tata Consultancy Services (TCS) in Bengaluru.
 
-🔹 Background & Current Role
-At TCS, I'm working for a Tier-1 global banking client — Bank of Montreal (BMO), handling their entire cloud infrastructure on AWS.
-My day-to-day work revolves around CI/CD automation, Kubernetes cluster management, Infrastructure as Code, and production 
-observability — all in a high-stakes banking environment with a 99.9% uptime SLA.
-
-🔹 Key Achievements (Drop Numbers — Interviewers Love This)
-Some highlights from my work at BMO:
-
-I reduced deployment cycle time by 40% by building end-to-end GitLab CI/CD pipelines
-I cut infrastructure provisioning time by 60% using modular Terraform IaC across 3 AWS accounts
-I saved 20–25% in monthly cloud costs through FinOps practices like rightsizing and Reserved Instance optimization
-I reduced MTTR by 30% by setting up full-stack observability with Prometheus, Grafana, and Dynatrace
-I automated operations across 50+ EC2 instances using Ansible, saving 15+ engineering hours per week
-
-
-🔹 Core Technical Stack
-My primary tech stack includes:
-
-Cloud: AWS — EKS, EC2, Lambda, RDS, DynamoDB, API Gateway, CloudWatch
-Containers & Orchestration: Kubernetes, Docker, Helm
-IaC: Terraform, Ansible
-CI/CD: GitLab CI/CD, GitHub Actions, ArgoCD
-Monitoring: Prometheus, Grafana, Dynatrace
-Scripting: Python, Bash
-
-
-🔹 Earlier Experience
-Before TCS, I worked at Envision Technologies as an SLDC Shift Engineer for Karnataka Power Transmission Corporation (KPTCL), 
-where I managed real-time power grid operations in a 24×7 high-availability environment. That experience gave me a strong foundation
-in incident management, fault analysis, and working under pressure — skills that directly transfer to production DevOps.
-
-🔹 Closing
-I'm now looking to take on a senior DevOps Engineer role where I can contribute to automation-first culture, 
-platform reliability, and cloud security at scale.
-I'm also currently pursuing my AWS Solutions Architect – Associate certification to further strengthen my cloud expertise."
-
-
------>  Day-to-Day Tasks 
-
-Say this:
-
-"My day typically involves a mix of planned work and reactive operations. Here's how it breaks down:
-Morning:
-I check overnight CloudWatch and Grafana alerts, review any incidents from the on-call log, and ensure all EKS pods and services are healthy.
-I review any pending GitLab CI/CD pipeline failures and coordinate with dev teams if deployments need attention.
-
-Core Work:
-  Writing or reviewing Terraform modules for new infrastructure requests — things like new VPCs, RDS instances, or EKS node groups
-  Building or updating GitLab CI/CD pipelines for application teams — adding stages like SAST scanning, Docker build, Helm deploy
-  Managing Kubernetes workloads — scaling, resource quota tuning, RBAC updates, rolling deployments
-  Running Ansible playbooks for EC2 patch compliance or agent deployments
-  Troubleshooting production issues — anything from pod crashes to ALB routing misconfigurations
-
-Ongoing:
-  Reviewing cloud cost dashboards for anomalies and enforcing tagging standards
-  Collaborating with security teams on IAM policies, IRSA roles, and API Gateway authorizer updates
-  Updating SLI/SLO dashboards in Grafana and fine-tuning alert thresholds
-  On-call rotation — I'm the primary on-call engineer for production banking infra, targeting P1 resolution under 30 minutes"
-
-
-📦 Project Explanation (BMO Banking Infrastructure)
-"Tell me about a key project you've worked on."
-Say this:
-"My primary project at TCS is the Enterprise Cloud Infrastructure platform for Bank of Montreal (BMO), one of Canada's largestbanks.
-The Challenge:
-BMO needed a highly available, secure, multi-account AWS architecture to support 1,000+ concurrent banking users while meeting strict 
-BFSI compliance standards — with zero tolerance for downtime or security breaches.
-What I Built & Owned:
-🔧 Infrastructure Layer:
-
-Designed a multi-account AWS setup — separate dev, staging, and prod accounts — with VPC peering, private subnets, and secure endpoints
-All infrastructure is written as modular Terraform IaC with remote S3 state locking — fully reproducible, zero config drift
-
-⚙️ CI/CD & Deployments:
-
-Built GitLab CI/CD pipelines covering build → test → containerize → deploy with automated rollback on failure
-All apps are deployed via Helm charts to Amazon EKS with zero-downtime rolling updates
-Provisioned self-hosted GitLab runners on Kubernetes with auto-scaling — cut CI queue wait times by 50%
-
-📊 Observability:
-
-Set up full-stack monitoring across 10+ microservices using Prometheus, Grafana, Dynatrace, and CloudWatch
-Built custom SLI/SLO dashboards and multi-channel alerting via SNS — reduced MTTR by 30%
-Alert-to-acknowledge time dropped from 15 minutes to under 2 minutes
-
-🔐 Security:
-
-Implemented IRSA for fine-grained pod-level AWS permissions
-Secured 10+ API Gateway endpoints with Lambda custom authorizers and IAM resource policies
-Maintained Kubernetes RBAC — zero unauthorized access incidents across all environments
-
-💰 FinOps:
-
-Led cloud cost optimization — tagging governance, rightsizing EC2, Reserved Instance planning — saving 20–25% monthly
-
-The Result:
-
-The platform supports production banking workloads at 99.9%+ uptime, 5+ deployments per day, and full compliance with BFSI security standards."
-
-
-💡 Quick Tips for the Interview
-DoAvoidSpeak with numbers and impactVague answers like "I worked on CI/CD"Pause after each sectionRushing through everything at
-onceSay "we" for team efforts, "I" for your direct workOverclaiming solo ownership of everythingKeep project explanation under 
-4 minutesGoing too deep into one toolEnd intro with "I'm excited about this opportunity"Ending abruptly without a close
-
-Practice this 2–3 times out loud before your interview — the numbers and tool names will flow naturally once you've rehearsed. Good luck, Sreekanth! 
-
-
 I am part of the DevOps and Production Support team responsible for managing highly available AWS 
 infrastructure and CI/CD platforms. We follow Agile methodology, and tickets are raised through 
 ServiceNow/Jira. On a daily basis, I work on incidents, service requests, changes, deployments,
@@ -153,4 +45,16 @@ to normal, and the incident was resolved within SLA. I documented the RCA and pr
 
 Currently, I am looking for an opportunity where I can leverage my experience in AWS, DevOps, and FinOps
 practices and contribute to cloud optimization, governance, automation, and operational excellence."
+
+aumate build and deployment process also infra provisioning  & monitering activities 
+Sorcecode management - git
+build tool - maven 
+CQA - sonar qube 
+CICD  - jenkins
+Containerization    - docker 
+Orchestration  - K8's
+Cloud   - AWS 
+
+
+
 
