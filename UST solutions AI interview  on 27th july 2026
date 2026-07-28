@@ -1,0 +1,32 @@
+
+1 Can you describe your experience as a DevOps Engineer, including the tools and technologies you've worked with and the types of projects you've been involved in?
+2 You mentioned working with Jenkins for CI/CD. Can you describe a specific CI/CD pipeline you implemented using Jenkins, including the stages involved and any challenges you faced?
+3 You mentioned working with Terraform for infrastructure as code. Can you describe a specific project where you implemented Terraform, detailing the infrastructure you created and any challenges you faced during that implementation?
+4  I see that you have significant experience with AWS and have architected production-grade Amazon EKS clusters. Can you tell me more about the specific challenges you faced while setting up the clusters and how you overcame them?
+5  Collaborating with security teams is indeed crucial. Can you provide an example of a specific security tool or practice you implemented in your CI/CD pipeline to enhance security during deployments?
+Candidate Answer:
+We implemented secure credentials management in Jenkins. Instead of hardcoding usernames, passwords, and keys, we stored them securely using Jenkins Credentials Store. Pipeline execution retrieves them only when required. This prevented sensitive information from being exposed in code.
+
+7 I noticed that you have experience with Terraform for infrastructure provisioning. Can you explain how you structured your Terraform code to ensure modularity and reusability across different environments?
+
+8 could you tell me about a time you had to troubleshoot a critical issue in your production environment? What steps did you take to resolve it and what was the outcome?
+Candidate Answer
+During deployment I used these dashboards to verify that the application was healthy after the release. When an issue was detected, we investigated immediately, identified the issue quickly, reducing the time to resolution and minimizing customer impact.  
+
+
+9 I see that you have significant experience with AWS and have architected production-grade Amazon EKS clusters. Can you tell me more about the specific challenges you faced while working on these clusters and how you overcame them?
+Your Answer:
+One biggest challenge I faced while managing production-grade EKS clusters was ensuring high availability and scalability during peak traffic. We addressed this by implementing cluster autoscaler and horizontal pod autoscaler along with properly configured node groups across multiple zones.
+Screenshot 2
+10 how have you integrated security practices into your CI/CD pipelines, particularly in relation to the DevSecOps principles mentioned in the job description?
+Your Answer:
+In my previous project, security was an important part of our CI/CD process. While I was not part of the dedicated security team, I worked closely with them to ensure our deployments followed the required security standards.
+
+11 Can you provide an example of a specific security tool or practice you implemented in your CI/CD pipeline to enhance security during deployments?
+12 Can you describe a specific challenge you faced during this implementation and how you resolved it?
+
+13 You mentioned using Terraform for provisioning infrastructure. Can you describe your experience with scripting and automation in this context? What specific scripts or automation tools did you use, and how did they integrate with your Terraform setup?
+Your Answer:
+In my previous project, I mostly worked on and followed a modular approach to write the infrastructure as code. I separated the infrastructure across different environments like dev, test, and production using Terraform workspaces. I separated the infrastructure into reusable modules such as EC2, VPC, S3, and IAM roles. I used input variables and output variables for each module to improve reusability and maintainability.
+
+14 could you share your experience with monitoring and observability tools like Prometheus and Grafana? How did you utilize these tools to improve system performance and incident response?
