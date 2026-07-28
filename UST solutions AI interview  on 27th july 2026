@@ -17,7 +17,7 @@ During deployment I used these dashboards to verify that the application was hea
 9 I see that you have significant experience with AWS and have architected production-grade Amazon EKS clusters. Can you tell me more about the specific challenges you faced while working on these clusters and how you overcame them?
 Your Answer:
 One biggest challenge I faced while managing production-grade EKS clusters was ensuring high availability and scalability during peak traffic. We addressed this by implementing cluster autoscaler and horizontal pod autoscaler along with properly configured node groups across multiple zones.
-Screenshot 2
+
 10 how have you integrated security practices into your CI/CD pipelines, particularly in relation to the DevSecOps principles mentioned in the job description?
 Your Answer:
 In my previous project, security was an important part of our CI/CD process. While I was not part of the dedicated security team, I worked closely with them to ensure our deployments followed the required security standards.
