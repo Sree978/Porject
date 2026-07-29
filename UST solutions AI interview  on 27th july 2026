@@ -246,3 +246,125 @@ We also reviewed resource requests and limits to ensure better resource allocati
 
 As a result, the application remained stable during peak traffic, incidents were detected much faster through automated 
 alerts, and the operations team could respond proactively instead of waiting for users to report issues
+
+
+ Short cuts 
+
+1. Jenkins CI/CD Pipeline (Remember: CBSTAD)
+
+C → B → S → T → A → D
+
+C – Checkout (GitLab)
+B – Build (Maven)
+S – Scan (SonarQube + Trivy)
+T – Test (JUnit)
+A – Artifact (Nexus + ECR)
+D – Deploy (Helm → EKS)
+
+One-line answer:
+
+"Developer commits code → Jenkins triggers → Checkout → Build → SonarQube → Unit Test → Store Artifact → Docker Build → Trivy Scan → Push to ECR → Deploy to EKS using Helm."
+
+2. Terraform (Remember: NCSMS)
+
+N → C → S → M → S
+
+N – Network (VPC/Subnets)
+C – Compute (EKS)
+S – Security (IAM/Security Groups)
+M – Monitoring (CloudWatch)
+S – State (S3 + DynamoDB)
+
+Challenge:
+
+Dependency issue → depends_on → solved
+
+3. EKS Challenges (Remember: ISRSD)
+
+I → S → R → S → D
+
+I – IRSA
+S – Secrets
+R – Resource Limits + HPA
+S – Service Exposure (ALB Ingress)
+D – Deployment (Readiness/Liveness)
+4. Security (Remember: TSJKI)
+
+T → S → J → K → I
+
+T – Trivy
+S – SonarQube
+J – Jenkins Credentials
+K – Kubernetes Secrets
+I – IRSA
+
+Interviewer asks security?
+Just remember:
+
+"Trivy, Sonar, Jenkins Credentials, Kubernetes Secrets, IRSA."
+
+5. Production Issue (Remember: PLRVM)
+
+P → L → R → V → M
+
+P – Pod Status
+L – Logs
+R – Rollback
+V – Verify
+M – Monitor
+
+Commands:
+
+kubectl get pods
+kubectl describe pod
+kubectl logs
+kubectl rollout undo
+kubectl rollout status
+6. Monitoring (Remember: PMAGH)
+
+P → M → A → G → H
+
+P – Prometheus
+M – Metrics
+A – Alertmanager
+G – Grafana
+H – HPA
+
+Metrics:
+
+CPU
+Memory
+Response Time
+Error Rate
+Pod Restarts
+7. Tell me about yourself (Remember: EPTA)
+
+E → P → T → A
+
+E – Experience (6 Years)
+P – Project (Banking)
+T – Tools (AWS, Jenkins, Docker, Kubernetes, Terraform)
+A – Achievement (Automation, Zero Downtime, Cost Savings)
+8. STAR Method (Use for every scenario)
+
+S → T → A → R
+
+Situation
+Task
+Action
+Result
+
+Example:
+
+"Production deployment failed (Situation). I investigated (Task). Checked logs, identified readiness probe issue, updated configuration (Action). Deployment succeeded with zero downtime (Result)."
+
+Ultimate 10-Second DevOps Cheat Sheet
+CI/CD      → CBSTAD
+Terraform  → NCSMS
+EKS        → ISRSD
+Security   → TSJKI
+Prod Issue → PLRVM
+Monitoring → PMAGH
+Scenario   → STAR
+
+Practice these abbreviations a few times, and each letter will trigger the full explanation during the interview. This is much easier than memorizing paragraphs.
