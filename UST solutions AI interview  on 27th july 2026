@@ -1,7 +1,7 @@
 
 1 Can you describe your experience as a DevOps Engineer, including the tools and technologies you've worked with and the types of projects you've been involved in?
 2 Can you describe a specific CI/CD pipeline you implemented using Jenkins, including the stages involved and any challenges you faced?
-3 You mentioned working with Terraform for infrastructure as code. Can you describe a specific project where you implemented Terraform, detailing the infrastructure you created and any challenges you faced during that implementation?
+3 Can you describe a specific project where you implemented Terraform, detailing the infrastructure you created and any challenges you faced during that implementation?
 4  I see that you have significant experience with AWS and have architected production-grade Amazon EKS clusters. Can you tell me more about the specific challenges you faced while setting up the clusters and how you overcame them?
 5  Collaborating with security teams is indeed crucial. Can you provide an example of a specific security tool or practice you implemented in your CI/CD pipeline to enhance security during deployments?
 Candidate Answer:
