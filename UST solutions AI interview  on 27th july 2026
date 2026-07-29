@@ -141,26 +141,108 @@ keys.
 These security controls ensured that only secure, quality-checked applications were deployed to production while reducing 
 manual security reviews
 
-7 I noticed that you have experience with Terraform for infrastructure provisioning. Can you explain how you structured your Terraform code to ensure modularity and reusability across different environments?
-
-8 could you tell me about a time you had to troubleshoot a critical issue in your production environment? What steps did you take to resolve it and what was the outcome?
-Candidate Answer
-During deployment I used these dashboards to verify that the application was healthy after the release. When an issue was detected, we investigated immediately, identified the issue quickly, reducing the time to resolution and minimizing customer impact.  
 
 
-9 I see that you have significant experience with AWS and have architected production-grade Amazon EKS clusters. Can you tell me more about the specific challenges you faced while working on these clusters and how you overcame them?
-Your Answer:
-One biggest challenge I faced while managing production-grade EKS clusters was ensuring high availability and scalability during peak traffic. We addressed this by implementing cluster autoscaler and horizontal pod autoscaler along with properly configured node groups across multiple zones.
+7 could you tell me about a time you had to troubleshoot a critical issue in your production environment? What steps did you take to resolve it and what was the outcome?
+   In one of our production environments, we experienced a critical issue immediately after deploying a new version of a Java 
+Spring Boot microservice on Amazon EKS. Users started receiving intermittent 503 Service Unavailable errors because some of 
+the newly created pods were failing and entering a CrashLoopBackOff state.
 
-10 how have you integrated security practices into your CI/CD pipelines, particularly in relation to the DevSecOps principles mentioned in the job description?
-Your Answer:
-In my previous project, security was an important part of our CI/CD process. While I was not part of the dedicated security team, I worked closely with them to ensure our deployments followed the required security standards.
+My responsibility was to quickly identify the root cause and restore the application with minimal business impact.
+
+The first step I took was to check the deployment status using kubectl get pods and kubectl describe pod. I noticed that 
+several pods were repeatedly restarting. I then checked the application logs using kubectl logs, which showed that the 
+application was unable to connect to the backend database because of an incorrect database connection string introduced
+in the new deployment.
+
+Next, I verified the Kubernetes ConfigMap and Secret and found that an incorrect configuration had been applied during the 
+deployment. Since the issue was affecting production, I immediately performed a rollback using kubectl rollout undo 
+(or helm rollback, depending on the deployment method) to restore the previous stable version.
+
+Once the application was restored, I corrected the configuration, validated it in the staging environment, and redeployed it through the Jenkins CI/CD pipeline. I also verified the rollout using kubectl rollout status and monitored the application using Prometheus, Grafana, and application logs to ensure everything was stable.
+
+To prevent the issue from happening again, we added configuration validation as part of the Jenkins pipeline, introduced
+peer reviews for configuration changes, and improved our readiness checks before promoting releases to production.
+
+As a result, the production service was restored within a few minutes, user impact was minimized, and the additional
+validation steps significantly reduced similar deployment issues in future releases." 
+
+
+
+
+
 
 11 Can you provide an example of a specific security tool or practice you implemented in your CI/CD pipeline to enhance security during deployments?
+      In my previous project, I implemented multiple security controls in our Jenkins CI/CD pipeline to ensure only secure 
+applications were deployed to production. One of the key tools we used was Trivy for container image vulnerability scanning.
+
+
+After Jenkins built the Docker image, it automatically ran a Trivy scan. The scan checked the image for known vulnerabilities
+(CVEs), outdated packages, and insecure dependencies. We configured the pipeline to fail automatically if any High or 
+Critical vulnerabilities were detected, preventing insecure images from being pushed to Amazon ECR or deployed to Amazon EKS. 
+Developers would update the vulnerable packages or base image before rerunning the pipeline.
+
+We also integrated SonarQube for static code analysis. During the build stage, SonarQube scanned the source code for bugs, 
+security vulnerabilities, and code smells. A Quality Gate was configured so the pipeline stopped if the code did not meet 
+our security and quality standards.
+
+To protect sensitive information, we never stored passwords or AWS credentials in the source code or Jenkinsfile. Instead, 
+we used Jenkins Credentials for the pipeline and Kubernetes Secrets for runtime secrets. For AWS access from Kubernetes pods,
+we implemented IAM Roles for Service Accounts (IRSA), which eliminated the need for long-term access keys.
+
+By combining Trivy, SonarQube, Jenkins Credentials, Kubernetes Secrets, and IRSA, we significantly improved the security of 
+our CI/CD pipeline and ensured that only secure, validated applications were deployed to production
+
 12 Can you describe a specific challenge you faced during this implementation and how you resolved it?
 
-13 You mentioned using Terraform for provisioning infrastructure. Can you describe your experience with scripting and automation in this context? What specific scripts or automation tools did you use, and how did they integrate with your Terraform setup?
-Your Answer:
-In my previous project, I mostly worked on and followed a modular approach to write the infrastructure as code. I separated the infrastructure across different environments like dev, test, and production using Terraform workspaces. I separated the infrastructure into reusable modules such as EC2, VPC, S3, and IAM roles. I used input variables and output variables for each module to improve reusability and maintainability.
+   One significant challenge I faced was during a production deployment where the new application pods were not becoming 
+healthy after deployment. Jenkins completed the pipeline successfully, but Kubernetes was unable to route traffic to the 
+new pods because the readiness probe kept failing.
 
-14 could you share your experience with monitoring and observability tools like Prometheus and Grafana? How did you utilize these tools to improve system performance and incident response?
+I started by checking the pod status using kubectl get pods and then examined the logs with kubectl logs. I found that 
+the application required more time to establish the database connection during startup, while the readiness probe was 
+checking the health endpoint too early.
+
+To resolve the issue, I increased the readiness probe's initialDelaySeconds and timeoutSeconds to match the application's 
+startup time. I tested the changes in the staging environment, verified that the pods became healthy, and then deployed 
+the updated configuration to production using Jenkins and Helm.
+
+After the fix, the deployment completed successfully with zero downtime, and we did not encounter the same issue in 
+subsequent releases. We also documented the startup requirements and standardized health probe configurations across
+all microservices.
+
+14 could you share your experience with monitoring and observability tools like Prometheus and Grafana? How did you 
+utilize these tools to improve system performance and incident response?
+
+
+In my previous project, I used Prometheus and Grafana to monitor our Java Spring Boot microservices running on Amazon EKS. 
+Our goal was to gain real-time visibility into application performance, Kubernetes cluster health, and infrastructure 
+utilization so that we could detect and resolve issues before they impacted users.
+
+We deployed Prometheus in the EKS cluster to collect metrics from Kubernetes components, worker nodes, and application pods. 
+For the Spring Boot application, we enabled Spring Boot Actuator metrics and configured Prometheus to scrape those metrics 
+automatically.
+
+Grafana was used to create dashboards for key metrics such as:
+
+CPU and memory utilization of nodes and pods
+Pod restart count and CrashLoopBackOff events
+Application response time and request rate
+HTTP error rates (4xx and 5xx)
+EKS node health and cluster resource utilization
+
+We also configured Prometheus Alertmanager to send alerts to our team's Slack channel and email whenever critical 
+thresholds were exceeded, such as high CPU usage, pod failures, or node resource exhaustion.
+
+One production incident involved a sudden increase in application response time during peak business hours. 
+Grafana showed that CPU utilization on the application pods had reached nearly 90%, and Prometheus confirmed a spike
+in request traffic.
+
+To resolve the issue, I analyzed the metrics, verified there were no application errors, and enabled the Horizontal 
+Pod Autoscaler (HPA) with appropriate CPU utilization thresholds. As traffic increased, Kubernetes automatically scaled 
+the number of pods, reducing CPU utilization and bringing application response times back to normal.
+
+We also reviewed resource requests and limits to ensure better resource allocation and prevent unnecessary throttling.
+
+As a result, the application remained stable during peak traffic, incidents were detected much faster through automated 
+alerts, and the operations team could respond proactively instead of waiting for users to report issues
