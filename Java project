@@ -23,3 +23,29 @@
 
 9. Post Build Actions ---> Pipeline status
 
+Take four server  
+1) manager
+2) jenkins
+3) worker 1
+4) worker 2
+
+ 1 ) Install docker yum install docker -y && systemctl start docker
+  in manager , worker1 & worker 2
+2 ) run docker swarm init over manager & paste code in worker 1 & 2
+3) docker compose  install in manger 
+
+cmd => 
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+sudo yum install python-pip
+
+sudo pip3 install docker-compose
+
+docker-compose --version
+
+ 
+
