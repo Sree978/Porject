@@ -1,10 +1,25 @@
-code  - git 
-scan   - CQA ( Sonar)
-build  -  Maven
-artifact - nexus
-Dockerfiles - build > image
-Image scan - trivy 
-Registry - pusy ( to eks or ecr)
-Deploy -  pre prod or prod 
-post build action - will get mail either pipeline build success or not 
+
+1. Code + Dockerfile
+
+2. Code Scan : CQA (Code Quality Analysis) ---> Sonar
+
+3. Build Maven (mvn clean package) (cp -r target Docker-app)
+
+4. Artifact : Nexus
+
+5. Dockerfiles ---> Build ---> image (docker build -t appimage Docker-app) &&
+   (docker build -t dbimage Docker-db)
+
+6. Image Scan ---> (trivy image appimage) && (trivy image dbimage)
+
+7. Registry --->
+
+   a. docker tag dbimage shaikmustafa/manual:db
+   b. docker tag appimage shaikmustafa/manual:app
+   c. docker push shaikmustafa/manual:db
+   d. docker push shaikmustafa/manual:app
+
+8. Deploy ---> Pre-Prod & Prod
+
+9. Post Build Actions ---> Pipeline status
 
