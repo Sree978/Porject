@@ -50,5 +50,8 @@ docker-compose --version
 take a jenkins server 
  install jenkins 
 
+ we have to take source code to manager  pipeline needs to run in manager 
+ will use master and slave concept
+ manage jenkins > nodes > 
  
 
