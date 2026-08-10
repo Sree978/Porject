@@ -1,0 +1,10 @@
+code  - git 
+scan   - CQA ( Sonar)
+build  -  Maven
+artifact - nexus
+Dockerfiles - build > image
+Image scan - trivy 
+Registry - pusy ( to eks or ecr)
+Deploy -  pre prod or prod 
+post build action - will get mail either pipeline build success or not 
+
