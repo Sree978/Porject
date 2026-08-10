@@ -47,5 +47,8 @@ sudo pip3 install docker-compose
 
 docker-compose --version
 
+take a jenkins server 
+ install jenkins 
+
  
 
