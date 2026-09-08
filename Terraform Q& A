@@ -1,0 +1,88 @@
+1. Terraform Intro, State File, Variables & Outputs
+
+Scenario: “What happens if two engineers run Terraform at the same time?”
+
+“Terraform uses the state file to track infrastructure and determine what changes are required. In a team environment, I would store the state remotely, 
+for example in an S3 backend, and enable state locking to prevent concurrent Terraform operations. This avoids state corruption and conflicting infrastructure changes.”
+
+Scenario: “Why do you use variables?”
+
+“I use variables to make Terraform configurations reusable across environments. For example, instead of hardcoding an EC2 instance type, I can define it as a 
+variable and provide different values for Dev, QA, and Production.”
+
+2. Aliases, Providers, Security Groups & Outputs
+
+Scenario: “You need to deploy resources in two AWS regions. How would you do it?”
+
+“I would configure multiple AWS provider blocks using aliases. For example, one provider could target Mumbai and another Singapore. Then I can explicitly specify 
+which provider a resource should use. This allows the same Terraform configuration to manage resources across multiple regions.”
+
+Security Group scenario:
+
+“I would create security groups with only the required inbound and outbound rules. For example, an application server may allow HTTPS from the load balancer, while 
+SSH access would be restricted to an approved administration network.”
+
+3. Workspace, Local & Refresh
+
+Scenario: “How would you manage Dev and QA using Terraform?”
+
+“Terraform workspaces can maintain separate state files for different environments while using the same configuration. For example, I could have dev and qa workspaces
+with different variable values. However, for larger production environments, I generally prefer separate configurations or repositories when stronger isolation is required.”
+
+Local scenario:
+
+“I use Terraform locals when I need to define reusable expressions or computed values within the configuration. This helps reduce repetition and makes the 
+Terraform code cleaner.”
+
+4. Import, Lifecycle & Dynamic Blocks
+
+Scenario: “An AWS resource already exists but wasn't created using Terraform. Now you need Terraform to manage it. What would you do?”
+
+“I would use terraform import to associate the existing resource with Terraform state. After importing, I would make sure the Terraform configuration accurately represents the existing infrastructure and run terraform plan to identify any differences before making changes.”
+
+Lifecycle scenario:
+
+“If I have a critical resource where accidental deletion is unacceptable, I can use prevent_destroy = true. I can also use create_before_destroy when I want Terraform 
+to create the replacement resource before destroying the old one, where the resource supports that behavior.”
+
+5. Provisioners
+
+Scenario: “Would you use Terraform provisioners to install software on EC2?”
+
+“I generally avoid provisioners because Terraform is primarily designed to provision infrastructure, not configure servers. I would prefer tools such as Ansible, cloud-init,
+or AWS Systems Manager. Provisioners are more of a last resort when there isn't a better native solution.”
+
+⭐ This is a good 4-year experience answer because you're showing when not to use a feature.
+
+6. Terraform with S3
+
+Scenario: “How would you manage Terraform state for a team?”
+
+“I would configure an S3 backend to store the Terraform state remotely rather than keeping it on an engineer's laptop. I would also enable appropriate access controls, 
+encryption, versioning, and state locking using the supported backend locking mechanism. This provides centralized state management and helps prevent concurrent changes.”
+
+7. State Locking & Modules
+
+Scenario: “Why is state locking important?”
+
+“State locking prevents multiple Terraform operations from modifying the same state simultaneously. For example, if two engineers run terraform apply at the same time, 
+locking ensures one operation completes before the other modifies the state. This helps prevent state corruption and conflicting changes.”
+
+Module scenario:
+
+“If I need to create the same VPC structure across multiple environments, I would create a reusable Terraform module. The module can contain VPC, subnet, route table, and
+related resources, while environment-specific values are passed as variables.”
+
+8. Modules & Dynamic Blocks
+
+Scenario: “Your security group has different ingress rules for different environments. How would you avoid duplicating code?”
+
+“I would create a reusable security group module and use variables or dynamic blocks for the ingress rules. The environment can pass a list or map of rules, and the 
+dynamic block generates the required Terraform configuration. This keeps the module reusable and avoids repetitive code.”
+
+9. VPC
+
+Scenario: “How would you design a production VPC?”
+
+“I would typically create a VPC with multiple Availability Zones for high availability. I would place public subnets for resources such as load balancers and private 
+subnets for application servers. Private resources can access the internet through a NAT Gateway when required, while security groups and network ACLs control traffic.”
