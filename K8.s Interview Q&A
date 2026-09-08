@@ -1,0 +1,138 @@
+1. Minikube & Kubernetes Commands
+
+Scenario: “How would you troubleshoot a Pod that is not starting?”
+
+“First, I would check the Pod status using kubectl get pods. Then I would use kubectl describe pod to check events and identify issues such as image pull errors, 
+insufficient resources, or scheduling problems. I would also check the container logs using kubectl logs. Based on the error, I would fix the underlying issue and 
+verify the Pod becomes Ready.”
+
+2. K8s Architecture, Labels, Selectors & Node Selectors
+
+Scenario: “You have a workload that must run only on specific nodes. What would you do?”
+
+“I would label the required nodes using kubectl label nodes. Then I would use nodeSelector or node affinity in the Deployment specification. This ensures Kubernetes 
+schedules those Pods only on the appropriate nodes. For more flexible scheduling requirements, I would prefer node affinity.”
+
+3. Kubernetes Services
+
+Scenario: “Pods are running, but users cannot access the application. What would you check?”
+
+“I would first verify the Service and its endpoints. I would check whether the Service selector matches the Pod labels. Then I would verify the targetPort and 
+containerPort, and test connectivity from another Pod. If the application is externally exposed, I would also check the LoadBalancer, Ingress, or security rules.”
+
+4. ReplicationController & ReplicaSet
+
+Scenario: “A Pod suddenly gets deleted. How does Kubernetes recover it?”
+
+“A ReplicaSet continuously maintains the desired number of Pods. If a Pod is deleted or crashes, the ReplicaSet controller detects that the actual number is below the 
+desired state and creates a replacement Pod. In modern Kubernetes, ReplicaSets are generally managed through Deployments.”
+
+5. Deployment & HPA
+
+Scenario: “Your application suddenly receives 5x normal traffic. How would Kubernetes handle it?”
+
+“I would configure an HPA based on CPU, memory, or custom metrics. When utilization crosses the configured threshold, HPA increases the number of Pod replicas. 
+The Deployment manages those replicas, while the Service distributes traffic across healthy Pods. I would also ensure the cluster has enough node capacity or configure 
+Cluster Autoscaler where applicable.”
+
+6. StatefulSet & DaemonSet
+
+Scenario: “Why would you use StatefulSet instead of Deployment?”
+
+“I would use StatefulSet when the application requires stable identity, persistent storage, or ordered deployment and termination. For example, databases like Cassandra
+or Kafka can require stable Pod identities. A Deployment is more suitable for stateless applications where Pods are interchangeable.”
+
+DaemonSet scenario:
+
+“If I need to run a monitoring or logging agent on every Kubernetes node, I would use a DaemonSet. Kubernetes automatically creates one Pod per eligible node and also 
+schedules the Pod on newly added nodes.”
+
+7. Namespace & ConfigMap
+
+Scenario: “How would you separate Dev, QA and Production workloads?”
+
+“I would use Kubernetes namespaces to logically isolate resources. For example, dev, qa, and prod namespaces. I can apply different RBAC permissions, resource quotas, 
+and configurations to each namespace. Application configuration that isn't sensitive can be stored in ConfigMaps and injected into Pods as environment variables or
+mounted files.”
+
+8. Secrets & ResourceQuota
+
+Scenario: “Your application needs database credentials. Where would you store them?”
+
+“I would avoid storing credentials directly in the Deployment YAML or Git repository. I would use Kubernetes Secrets, preferably integrated with an external secrets
+manager such as AWS Secrets Manager depending on the architecture. Access would be controlled using RBAC, and I would ensure sensitive values aren't exposed through 
+logs or configuration files.”
+
+ResourceQuota scenario:
+
+“If one team is consuming most of the cluster resources, I would configure a ResourceQuota at the namespace level. This limits the total CPU, memory, Pods, or other
+resources that namespace can consume and prevents one team from impacting other workloads.”
+
+9. Secrets & ResourceQuota
+
+Scenario: “A team deploys too many Pods and impacts other teams. What would you do?”
+
+“I would first identify the resource consumption using Kubernetes metrics. Then I would configure namespace-level ResourceQuota and LimitRange policies. This 
+controls the maximum resources a namespace can consume and can also enforce default CPU and memory requests and limits.”
+
+10. Argo CD / GitOps
+
+Scenario: “A developer manually changes a Kubernetes Deployment in production. What happens in a GitOps setup?”
+
+“With Argo CD, Git is treated as the source of truth. If someone manually changes the Kubernetes resource, Argo CD can detect the drift between the desired state 
+in Git and the live cluster. Depending on the sync configuration, it can either alert us or automatically reconcile the cluster back to the Git-defined state.”
+
+Interview line:
+“Git → Argo CD → Kubernetes”
+
+11. RBAC
+
+Scenario: “A developer needs access to Pods but should not be able to delete Deployments. How would you implement it?”
+
+“I would use Kubernetes RBAC. I would create a Role with only the required permissions, such as get, list, and watch on Pods. Then I would create a RoleBinding to 
+associate that Role with the developer or service account. I follow the principle of least privilege rather than giving broad permissions.”
+
+12. Kubernetes Volumes
+
+Scenario: “A Pod is deleted and the application loses its data. How would you prevent this?”
+
+“For persistent data, I would use PersistentVolumes and PersistentVolumeClaims instead of relying on the Pod's ephemeral filesystem. In AWS EKS, depending on the workload,
+I could use EBS or EFS through the appropriate CSI driver. The PVC allows the workload to request persistent storage independently of the Pod lifecycle.”
+
+13. Helm
+
+Scenario: “You have the same application deployed in Dev, QA and Production with different configurations. How would Helm help?”
+
+“I would create a Helm chart containing reusable Kubernetes templates and maintain environment-specific values files. For example, values-dev.yaml, values-qa.yaml,
+and values-prod.yaml. This avoids duplicating Kubernetes manifests and makes deployments consistent across environments.”
+
+14. Network Policies
+
+Scenario: “Your frontend Pods should communicate with backend Pods, but backend Pods should not be directly accessible from other namespaces. How would you implement it?”
+
+“I would use Kubernetes NetworkPolicies to control Pod-to-Pod traffic. I would allow traffic to the backend only from the required frontend Pods or namespace and deny 
+unnecessary ingress traffic. I would also verify that the Kubernetes CNI supports NetworkPolicy enforcement.”
+
+15. Probes & Ingress
+
+Scenario: “The application is running, but sometimes receives traffic before it is actually ready. How would you solve it?”
+
+“I would configure a readiness probe. Kubernetes only sends Service traffic to Pods that pass the readiness check. I would also use a liveness probe to detect applications
+that are stuck and need restarting. For slow-starting applications, I may also configure a startup probe to prevent premature liveness failures.”
+
+Ingress scenario:
+
+“If multiple applications need to be exposed through a common HTTP/HTTPS entry point, I would use an Ingress with an Ingress Controller. For example, /api can route to 
+the backend Service and / to the frontend Service. TLS termination can also be configured at the Ingress layer.”
+
+16. Deployment Strategies & Jobs
+
+Scenario: “You need to release a high-risk application version with minimal production risk. What would you choose?”
+
+“For a high-risk release, I would consider Canary or Blue-Green deployment. With Canary, I can expose the new version to a small percentage of traffic, monitor metrics 
+and gradually increase traffic. With Blue-Green, I can keep the previous version available and quickly switch traffic back if the new version has issues.”
+
+Job scenario:
+
+“If I need to perform a one-time database backup or migration, I would use a Kubernetes Job. If the task needs to run periodically, such as a daily backup, I would use 
+a CronJob.”
