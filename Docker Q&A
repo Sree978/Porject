@@ -1,0 +1,164 @@
+1. Docker Basics
+
+Q: Why do you use Docker?
+
+“I use Docker to package an application along with its dependencies into a consistent container image. This helps avoid environment-related issues between development,
+testing, and production. Containers are lightweight and can be started, stopped, and scaled easily.”
+
+2. Docker Architecture
+
+Q: Explain Docker architecture.
+
+“Docker follows a client-server architecture. The Docker CLI communicates with the Docker daemon, which manages images, containers, networks, and volumes. 
+Images are stored in registries such as Docker Hub or private registries, and containers are created from those images.”
+
+Flow:
+Developer → Docker CLI → Docker Daemon → Image → Container
+
+3. Dockerfile
+
+Q: How do you create a Docker image for an application?
+
+“I create a Dockerfile containing the base image, required dependencies, application files, and startup command. Then I build the image using docker build, 
+tag it appropriately, and push it to a container registry.”
+
+4. Docker Image vs Container
+
+Q: What is the difference?
+
+“An image is an immutable template containing the application and its dependencies. A container is a running instance created from that image. Multiple containers 
+can be created from the same image.”
+
+5. Docker Image Size Reduction ⭐
+
+Q: Your Docker image is 1.5 GB. How would you reduce it?
+
+“I would first identify which layers are consuming the most space. Then I would use a smaller base image where appropriate, multi-stage builds, .dockerignore, 
+and remove unnecessary packages and files. For Java applications, I can build the application in one stage and copy only the required JAR into a lightweight runtime image.”
+
+Example:
+
+Maven Build Image → JAR → Small Runtime Image
+
+6. Multi-Stage Docker Build
+
+Q: Why use multi-stage builds?
+
+“Multi-stage builds separate the build environment from the runtime environment. For example, Maven and the JDK can be used to compile a Java application, 
+but the final image contains only the required JAR and runtime. This significantly reduces image size and attack surface.”
+
+7. Docker Volumes
+
+Q: A database container was deleted and all data was lost. How would you prevent this?
+
+“I would not store persistent database data only inside the container's writable layer. I would use a Docker volume and mount it to the database's data directory. 
+The container can then be recreated without losing the persistent data.”
+
+Flow:
+Container → Volume → Persistent Data
+
+8. Docker Networking
+
+Q: Two containers need to communicate. How would you configure it?
+
+“I would create a Docker network and attach both containers to it. Containers on the same user-defined network can communicate using container or service names 
+instead of relying on hardcoded IP addresses.”
+
+Example:
+
+Frontend → backend:8080
+
+9. Docker Compose
+
+Q: Your application has frontend, backend and database containers. How would you manage them?
+
+“I would use Docker Compose to define all services in a single YAML file. I can configure images, networks, volumes, environment variables, and dependencies, 
+and then bring the complete application stack up or down using Compose commands.”
+
+10. Docker Compose Scenario
+
+Q: Your backend starts before the database is ready. What would you do?
+
+“I would configure the Compose services with appropriate health checks and dependency conditions where supported, but I wouldn't rely solely on startup ordering. 
+The application should also implement retry logic so it can gracefully wait for the database to become available.”
+
+11. Docker Registry
+
+Q: How do you store and distribute Docker images?
+
+“After building and testing an image, I tag it with a meaningful version and push it to a container registry such as Amazon ECR or another private registry. Deployment
+environments then pull the specific image version required.”
+
+Flow:
+
+Git → CI → Docker Build → ECR → Deployment
+
+12. Docker + Jenkins ⭐
+
+Q: How have you integrated Docker with Jenkins?
+
+“Jenkins checks out the application code, builds and tests it, creates the Docker image, tags it using the build number or application version, and pushes it to the 
+container registry. After that, Jenkins triggers the deployment using the newly created image.”
+
+Flow:
+
+Git → Jenkins → Build/Test → Docker Build → ECR → Deploy
+
+13. Docker Secrets
+
+Q: How do you handle passwords in Docker?
+
+“I avoid hardcoding passwords in Dockerfiles or committing them to Git. In Docker Swarm, I can use Docker Secrets to securely provide sensitive values to services.
+In AWS environments, I would also consider services such as Secrets Manager or Parameter Store depending on the architecture.”
+
+14. Docker Swarm
+
+Q: What is Docker Swarm used for?
+
+“Docker Swarm provides container orchestration across multiple Docker nodes. It supports features such as services, replicas, rolling updates, service discovery, 
+and scaling. In modern production environments, Kubernetes is more commonly used when advanced orchestration capabilities are required.”
+
+15. Docker Swarm Scenario
+
+Q: One Swarm node goes down. What happens?
+
+“If the service has multiple replicas and the cluster has sufficient healthy nodes, Swarm schedules replacement tasks on available nodes to maintain the desired replica
+count. This provides service availability despite individual node failures.”
+
+16. Docker Container Keeps Restarting ⭐
+
+Q: A container continuously restarts. How will you troubleshoot it?
+
+“I would first check the container status and logs using docker ps and docker logs. Then I would inspect the container configuration, exit code, environment variables, 
+mounted volumes, network connectivity, and resource limits. I would also verify whether the application itself is crashing or the container's startup command is incorrect.”
+
+17. Container Works Locally but Not in Production
+
+Q: What would you check?
+
+“I would compare the image version, environment variables, mounted volumes, network configuration, ports, secrets, and runtime dependencies between the environments. 
+I would also check container logs and inspect the image to make sure the required files and dependencies are actually present.”
+
+18. Docker Port Mapping
+
+Q: Application runs on port 8080 inside the container. How do users access it on port 80?
+
+“I would map the host port 80 to the container port 8080 using Docker port mapping.”
+
+Host:80 → Container:8080
+
+“The application continues listening on 8080 inside the container, while users access it through port 80.”
+
+19. CMD vs ENTRYPOINT
+
+Q: What is the difference?
+
+“ENTRYPOINT defines the main executable of the container, while CMD provides default arguments or a default command. I generally use ENTRYPOINT when the container has
+a fixed executable and CMD when I want to provide overridable defaults.”
+
+20. Docker Health Check
+
+Q: Container is running, but the application isn't responding. How do you detect it?
+
+“I would configure a Docker health check that verifies the application's endpoint or expected behavior. A container being in the running state doesn't necessarily mean 
+the application is healthy, so health checks provide an additional layer of validation.”
